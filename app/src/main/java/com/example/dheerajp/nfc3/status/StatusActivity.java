@@ -2,12 +2,19 @@ package com.example.dheerajp.nfc3.status;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat.WearableExtender;
 import android.support.v4.media.TransportMediator;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.View;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.os.Bundle;
+import android.content.Context;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.example.dheerajp.nfc3.BuildConfig;
 import com.example.dheerajp.nfc3.C0146R;
@@ -18,6 +25,8 @@ import android.widget.Toast;
 
 import com.example.dheerajp.nfc3.R;
 
+import org.w3c.dom.Text;
+
 public class StatusActivity extends SIC43N1xService {
 
     public static AlertDialog alertCloneStatus;
@@ -26,6 +35,9 @@ public class StatusActivity extends SIC43N1xService {
     private String temp;
     private byte[] uid_temp;
     public static String final_tag_uid;
+    private static TextView productId;
+    private static TextView TamperInfo;
+    private static Context context;
 
     class C02031 implements Runnable {
         final String displaUid;
@@ -34,7 +46,9 @@ public class StatusActivity extends SIC43N1xService {
         }
 
         public void run() {
-            Toast.makeText(StatusActivity.this, this.displaUid, Toast.LENGTH_LONG).show();
+            //Toast.makeText(StatusActivity.this, this.displaUid, Toast.LENGTH_LONG).show();
+            TextView productId = (TextView)findViewById(R.id.textView);
+            productId.setText(this.displaUid);
         }
     }
     //This class getting the byte for tamper and passing in function
@@ -47,8 +61,17 @@ public class StatusActivity extends SIC43N1xService {
 
         public void run() {
             setCheckTamper(this.val$rx);
+            TextView TamperInfo = (TextView)findViewById(R.id.textView2);
+            Log.i("Tring to set1", "set");
+            if (setCheckTamper(this.val$rx)){
+                TamperInfo.setText("sealed");
+            } else {
+                TamperInfo.setText("Broken Seal");
+            }
+
         }
     }
+
     //calling this method for tamper check
     public static boolean setCheckTamper(byte[] rx) {
         Log.i("Setting Tamper Check", "Inside Set Tamper Check");
@@ -56,15 +79,15 @@ public class StatusActivity extends SIC43N1xService {
         Log.i("Tamper check byte", String.format("%x", rx[1]));
         // just check the values according to rx[] and with help of loag and toast
         if (rx[0] == 0 && rx[1] == 0) {
-            //txtReturnTmp.setText("Untampered");
+            Toast.makeText(StatusActivity.context, "unTampred", Toast.LENGTH_LONG).show();
             return true;
         } else if (rx[0] == (byte) -1 && rx[0] == (byte) -1) {
-            //txtReturnTmp.setText("Tampered");
+            Toast.makeText(StatusActivity.context, "Tampred", Toast.LENGTH_LONG).show();
+            return false;
         } else {
             //clearChkTamper();
-            return false;
+            return true;
         }
-        return true;
     }
 
     class C02064 implements Runnable {
@@ -78,10 +101,11 @@ public class StatusActivity extends SIC43N1xService {
     }
     static void clearChkTamper() {
 //        if (txtReturnTmp != null) {
-//            //txtReturnTmp.setText(BuildConfig.FLAVOR);
+            //TamperInfo.setText("No Information");
 //            //imgViewTagTamper.setImageResource(C0146R.drawable.tag);
 //        }
     }
+
 
     private void TamperCheck() {
         Log.i("tag id check is", SIC43N1xService.taguid);
@@ -116,6 +140,11 @@ public class StatusActivity extends SIC43N1xService {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
+        TextView productId = (TextView)findViewById(R.id.textView);
+        TextView TamperInfo = (TextView)findViewById(R.id.textView2);
+        TamperInfo.setText("yes");
+        StatusActivity.context = getApplicationContext();
         //Toast.makeText(getApplicationContext(), final_tag_uid, Toast.LENGTH_LONG).show();
     }
+
 }

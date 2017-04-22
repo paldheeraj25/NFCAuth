@@ -10,7 +10,9 @@ import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import com.example.dheerajp.nfc3.status.ReadDataFragment;
+
 import android.util.Log;
+
 /**
  * Created by Dheeraj P on 4/20/2017.
  */
@@ -33,7 +35,7 @@ public abstract class SIC43N1xService extends FragmentActivity {
     public static PendingIntent pendingIntent;
     public static String[] tech;
     public static byte[] uid;
-    public static String taguid;
+    public static String taguid = "";
 
     /* renamed from: com.sic.app.sic43n1x.SIC43N1xService.1 */
     class C01481 implements Runnable {
