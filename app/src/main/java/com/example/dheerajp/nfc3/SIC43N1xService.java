@@ -58,6 +58,7 @@ public abstract class SIC43N1xService extends FragmentActivity {
         }
 
         public void run() {
+            taguid = "";
             SIC43N1xService.this.runOnUiThread(new C01471());
             Tag tag = (Tag) this.val$intent.getParcelableExtra("android.nfc.extra.TAG");
             SIC43N1xService.nfc = NfcA.get(tag);

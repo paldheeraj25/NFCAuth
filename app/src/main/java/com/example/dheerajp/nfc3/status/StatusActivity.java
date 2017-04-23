@@ -142,7 +142,7 @@ public class StatusActivity extends SIC43N1xService {
         setContentView(R.layout.activity_status);
         TextView productId = (TextView)findViewById(R.id.textView);
         TextView TamperInfo = (TextView)findViewById(R.id.textView2);
-        TamperInfo.setText("yes");
+        TamperInfo.setText("Tamper Staus");
         StatusActivity.context = getApplicationContext();
         //Toast.makeText(getApplicationContext(), final_tag_uid, Toast.LENGTH_LONG).show();
     }
