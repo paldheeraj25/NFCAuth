@@ -20,23 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("check Log", "Testing Check Log");
-        Log.i("check Log", "Testing Check Log");
-        Log.v("check Log", "Testing Check Log");
+//        Log.d("check Log", "Testing Check Log");
+//        Log.i("check Log", "Testing Check Log");
+//        Log.v("check Log", "Testing Check Log");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         Button goToStatus = (Button) findViewById(R.id.homeButton);
         goToStatus.setOnClickListener(
                 new Button.OnClickListener(){

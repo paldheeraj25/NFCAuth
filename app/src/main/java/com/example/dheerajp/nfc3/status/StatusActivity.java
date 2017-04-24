@@ -1,27 +1,22 @@
 package com.example.dheerajp.nfc3.status;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat.WearableExtender;
-import android.support.v4.media.TransportMediator;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.View;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.os.Bundle;
 import android.content.Context;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import com.example.dheerajp.nfc3.BuildConfig;
-import com.example.dheerajp.nfc3.C0146R;
 import com.example.dheerajp.nfc3.SIC43N1xService;
-import java.io.IOException;
 import java.util.Arrays;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.FirebaseApp;
+
 import android.widget.Toast;
+
 
 import com.example.dheerajp.nfc3.R;
 
@@ -36,8 +31,12 @@ public class StatusActivity extends SIC43N1xService {
     private byte[] uid_temp;
     public static String final_tag_uid;
     private static TextView productId;
+    private static TextView productname;
     private static TextView TamperInfo;
     private static Context context;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("product");
 
     class C02031 implements Runnable {
         final String displaUid;
@@ -47,8 +46,34 @@ public class StatusActivity extends SIC43N1xService {
 
         public void run() {
             //Toast.makeText(StatusActivity.this, this.displaUid, Toast.LENGTH_LONG).show();
+            Log.i("Checking data base23", "Inside Set Tamper Check");
             TextView productId = (TextView)findViewById(R.id.textView);
             productId.setText(this.displaUid);
+
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    //String value = dataSnapshot.getValue(String.class);
+                    showData(dataSnapshot);
+                    //database.child("Campaigns").child(key).child("count");
+                    //Log.d("test", "Value is: " + value);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("test", "Failed to read value.", error.toException());
+                }
+            });
+        }
+
+        private void showData(DataSnapshot dataSnapshot){
+            Log.i("Checking data base1", "Inside Set Tamper Check");
+            TextView productname = (TextView)findViewById(R.id.textView3);
+            productname.setText(dataSnapshot.child("prod1").child("name").getValue().toString());
+            Log.d("snapshot Data", dataSnapshot.child("prod1").child("name").getValue().toString());
         }
     }
     //This class getting the byte for tamper and passing in function
@@ -62,11 +87,12 @@ public class StatusActivity extends SIC43N1xService {
         public void run() {
             setCheckTamper(this.val$rx);
             TextView TamperInfo = (TextView)findViewById(R.id.textView2);
-            Log.i("Tring to set1", "set");
+            //Log.i("Tring to set1", "set");
             if (setCheckTamper(this.val$rx)){
-                TamperInfo.setText("sealed");
+                TamperInfo.setText("Sealed");
             } else {
                 TamperInfo.setText("Broken Seal");
+                TamperInfo.setTextColor(Color.RED);
             }
 
         }
@@ -74,18 +100,17 @@ public class StatusActivity extends SIC43N1xService {
 
     //calling this method for tamper check
     public static boolean setCheckTamper(byte[] rx) {
-        Log.i("Setting Tamper Check", "Inside Set Tamper Check");
-        Log.i("Tamper check byte", String.format("%x", rx[0]));
-        Log.i("Tamper check byte", String.format("%x", rx[1]));
+//        Log.i("Setting Tamper Check", "Inside Set Tamper Check");
+//        Log.i("Tamper check byte", String.format("%x", rx[0]));
+//        Log.i("Tamper check byte", String.format("%x", rx[1]));
         // just check the values according to rx[] and with help of loag and toast
         if (rx[0] == 0 && rx[1] == 0) {
-            Toast.makeText(StatusActivity.context, "unTampred", Toast.LENGTH_LONG).show();
+            //Toast.makeText(StatusActivity.context, "unTampred", Toast.LENGTH_LONG).show();
             return true;
         } else if (rx[0] == (byte) -1 && rx[0] == (byte) -1) {
-            Toast.makeText(StatusActivity.context, "Tampred", Toast.LENGTH_LONG).show();
+            //Toast.makeText(StatusActivity.context, "Tampred", Toast.LENGTH_LONG).show();
             return false;
         } else {
-            //clearChkTamper();
             return true;
         }
     }
@@ -100,10 +125,6 @@ public class StatusActivity extends SIC43N1xService {
         }
     }
     static void clearChkTamper() {
-//        if (txtReturnTmp != null) {
-            //TamperInfo.setText("No Information");
-//            //imgViewTagTamper.setImageResource(C0146R.drawable.tag);
-//        }
     }
 
 
@@ -128,11 +149,7 @@ public class StatusActivity extends SIC43N1xService {
         }
         TamperCheck();
         final_tag_uid = SIC43N1xService.taguid;
-        //TextView displayUid = (TextView)findViewById(R.id.textView);
-        //displayUid.setText("Hi there");
         runOnUiThread(new C02031(SIC43N1xService.taguid));
-        //nfcReConnect();
-        //Toast.makeText(StatusActivity.this, final_tag_uid, Toast.LENGTH_LONG).show();
     }
 
 
@@ -143,8 +160,10 @@ public class StatusActivity extends SIC43N1xService {
         TextView productId = (TextView)findViewById(R.id.textView);
         TextView TamperInfo = (TextView)findViewById(R.id.textView2);
         TamperInfo.setText("Tamper Staus");
-        StatusActivity.context = getApplicationContext();
-        //Toast.makeText(getApplicationContext(), final_tag_uid, Toast.LENGTH_LONG).show();
+        Log.i("Checking data base2", "Inside Set Tamper Check");
+        Log.d("Checking data base2", "Inside Set Tamper Check");
+        Log.v("Checking data base2", "Inside Set Tamper Check");
+        //StatusActivity.context = getApplicationContext();
     }
 
 }

@@ -62,10 +62,10 @@ public abstract class SIC43N1xService extends FragmentActivity {
             SIC43N1xService.this.runOnUiThread(new C01471());
             Tag tag = (Tag) this.val$intent.getParcelableExtra("android.nfc.extra.TAG");
             SIC43N1xService.nfc = NfcA.get(tag);
-            Log.d("check Log service", "Testing Check Log");
-            Log.d("check Log1", "service1 Check Log");
-            Log.i("check Log2", "service2 Check Log");
-            Log.v("check Log3", "service3 Check Log");
+//            Log.d("check Log service", "Testing Check Log");
+//            Log.d("check Log1", "service1 Check Log");
+//            Log.i("check Log2", "service2 Check Log");
+//            Log.v("check Log3", "service3 Check Log");
             SIC43N1xService.ndef = Ndef.get(tag);
             SIC43N1xService.uid = tag.getId();
             byte uidTagtype = SIC43N1xService.uid[1];
@@ -95,7 +95,7 @@ public abstract class SIC43N1xService extends FragmentActivity {
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         adapter = NfcAdapter.getDefaultAdapter(this);
-        Log.d("check Log oncraete", "Testing Check Log oncreate");
+        //Log.d("check Log oncraete", "Testing Check Log oncreate");
         pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(536870912), 0);
         String[][] strArr = new String[1][];
         strArr[0] = new String[]{NfcA.class.getName()};
