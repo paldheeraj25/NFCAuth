@@ -2,6 +2,7 @@ package com.example.dheerajp.nfc3.status;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.content.Context;
@@ -72,8 +73,16 @@ public class StatusActivity extends SIC43N1xService {
         private void showData(DataSnapshot dataSnapshot){
             Log.i("Checking data base1", "Inside Set Tamper Check");
             TextView productname = (TextView)findViewById(R.id.textView3);
+            TextView productDescrption = (TextView)findViewById(R.id.description);
+            TextView productManufacture = (TextView)findViewById(R.id.manufacturing_date);
+            TextView productExpire = (TextView)findViewById(R.id.expiry_date);
+
+
             productname.setText(dataSnapshot.child("prod1").child("name").getValue().toString());
-            Log.d("snapshot Data", dataSnapshot.child("prod1").child("name").getValue().toString());
+            productDescrption.setText(dataSnapshot.child("prod1").child("description").getValue().toString());
+            productManufacture.setText(dataSnapshot.child("prod1").child("manufacturing_date").getValue().toString());
+            productExpire.setText(dataSnapshot.child("prod1").child("expiry_date").getValue().toString());
+            //Log.d("snapshot Data", dataSnapshot.child("prod1").child("expiry_data").getValue().toString());
         }
     }
     //This class getting the byte for tamper and passing in function
@@ -90,9 +99,11 @@ public class StatusActivity extends SIC43N1xService {
             //Log.i("Tring to set1", "set");
             if (setCheckTamper(this.val$rx)){
                 TamperInfo.setText("Sealed");
+                TamperInfo.setTypeface(TamperInfo.getTypeface(), Typeface.BOLD_ITALIC);
             } else {
                 TamperInfo.setText("Broken Seal");
                 TamperInfo.setTextColor(Color.RED);
+                TamperInfo.setTypeface(TamperInfo.getTypeface(), Typeface.BOLD_ITALIC);
             }
 
         }
