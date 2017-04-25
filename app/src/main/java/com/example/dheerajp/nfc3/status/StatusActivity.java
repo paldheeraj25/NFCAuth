@@ -1,11 +1,13 @@
 package com.example.dheerajp.nfc3.status;
 
+import android.animation.AnimatorSet;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.content.Context;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.dheerajp.nfc3.SIC43N1xService;
 import java.util.Arrays;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 
 import com.example.dheerajp.nfc3.R;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -76,12 +79,13 @@ public class StatusActivity extends SIC43N1xService {
             TextView productDescrption = (TextView)findViewById(R.id.description);
             TextView productManufacture = (TextView)findViewById(R.id.manufacturing_date);
             TextView productExpire = (TextView)findViewById(R.id.expiry_date);
-
+            ImageView productImage = (ImageView)findViewById(R.id.imageView2) ;
 
             productname.setText(dataSnapshot.child("prod1").child("name").getValue().toString());
             productDescrption.setText(dataSnapshot.child("prod1").child("description").getValue().toString());
             productManufacture.setText(dataSnapshot.child("prod1").child("manufacturing_date").getValue().toString());
             productExpire.setText(dataSnapshot.child("prod1").child("expiry_date").getValue().toString());
+            Picasso.with(StatusActivity.this).load("https://firebasestorage.googleapis.com/v0/b/fir-1-a158d.appspot.com/o/minion1.jpg?alt=media&token=dd72e136-1e01-4ed4-afdc-f1b96ddab6dc").into(productImage);
             //Log.d("snapshot Data", dataSnapshot.child("prod1").child("expiry_data").getValue().toString());
         }
     }
