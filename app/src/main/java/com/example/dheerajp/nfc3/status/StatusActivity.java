@@ -81,12 +81,13 @@ public class StatusActivity extends SIC43N1xService {
             TextView productExpire = (TextView)findViewById(R.id.expiry_date);
             ImageView productImage = (ImageView)findViewById(R.id.imageView2) ;
 
-            productname.setText(dataSnapshot.child("prod1").child("name").getValue().toString());
-            productDescrption.setText(dataSnapshot.child("prod1").child("description").getValue().toString());
-            productManufacture.setText(dataSnapshot.child("prod1").child("manufacturing_date").getValue().toString());
-            productExpire.setText(dataSnapshot.child("prod1").child("expiry_date").getValue().toString());
-            Picasso.with(StatusActivity.this).load("https://firebasestorage.googleapis.com/v0/b/fir-1-a158d.appspot.com/o/minion1.jpg?alt=media&token=dd72e136-1e01-4ed4-afdc-f1b96ddab6dc").into(productImage);
-            //Log.d("snapshot Data", dataSnapshot.child("prod1").child("expiry_data").getValue().toString());
+            productname.setText(dataSnapshot.child(displaUid).child("productName").getValue().toString());
+            productDescrption.setText(dataSnapshot.child(displaUid).child("description").getValue().toString());
+            productManufacture.setText(dataSnapshot.child(displaUid).child("manufacturingDate").getValue().toString());
+            productExpire.setText(dataSnapshot.child(displaUid).child("expiryDate").getValue().toString());
+            //Picasso.with(StatusActivity.this).load("https://firebasestorage.googleapis.com/v0/b/fir-1-a158d.appspot.com/o/minion1.jpg?alt=media&token=dd72e136-1e01-4ed4-afdc-f1b96ddab6dc").into(productImage);
+            Picasso.with(StatusActivity.this).load(dataSnapshot.child(displaUid).child("productImage").getValue().toString()).into(productImage);
+            Log.d("snapshot Data", dataSnapshot.child(displaUid).getValue().toString());
         }
     }
     //This class getting the byte for tamper and passing in function
