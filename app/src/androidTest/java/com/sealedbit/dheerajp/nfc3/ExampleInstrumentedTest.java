@@ -1,4 +1,4 @@
-package com.example.dheerajp.nfc3;
+package com.sealedbit.dheerajp.nfc3;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

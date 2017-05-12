@@ -1,4 +1,4 @@
-package com.example.dheerajp.nfc3;
+package com.sealedbit.dheerajp.nfc3;
 
 /**
  * Created by Dheeraj P on 4/20/2017.

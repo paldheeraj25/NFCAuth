@@ -1,4 +1,4 @@
-package com.example.dheerajp.nfc3;
+package com.sealedbit.dheerajp.nfc3;
 
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcA;

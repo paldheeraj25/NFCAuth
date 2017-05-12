@@ -1,4 +1,4 @@
-package com.example.dheerajp.nfc3.status;
+package com.sealedbit.dheerajp.nfc3.status;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -6,9 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.example.dheerajp.nfc3.BuildConfig;
-import com.example.dheerajp.nfc3.C0146R;
-import com.example.dheerajp.nfc3.SIC43N1xFragment;
+import com.sealedbit.dheerajp.nfc3.BuildConfig;
+import com.sealedbit.dheerajp.nfc3.SIC43N1xFragment;
 
 /**
  * Created by Dheeraj P on 4/20/2017.

@@ -1,4 +1,4 @@
-package com.example.dheerajp.nfc3;
+package com.sealedbit.dheerajp.nfc3;
 
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -9,7 +9,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import com.example.dheerajp.nfc3.status.ReadDataFragment;
+import com.sealedbit.dheerajp.nfc3.status.ReadDataFragment;
 
 import android.util.Log;
 

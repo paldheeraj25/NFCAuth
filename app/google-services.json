@@ -98,7 +98,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:361620174806:android:c50d4307aa735d64",
         "android_client_info": {
-          "package_name": "com.example.dheerajp.nfc3"
+          "package_name": "com.sealedbit.dheerajp.nfc3"
         }
       },
       "oauth_client": [
@@ -106,7 +106,7 @@
           "client_id": "361620174806-7e31gb99t7n9h7qhgot6sc0mljfu5796.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.dheerajp.nfc3",
+            "package_name": "com.sealedbit.dheerajp.nfc3",
             "certificate_hash": "5c5ad9e8e5df034a71ee3e9ca7b94a7f16f84af7"
           }
         },
